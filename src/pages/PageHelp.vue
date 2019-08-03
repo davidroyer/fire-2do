@@ -7,7 +7,7 @@
 			label="Back"
 			flat />
 
-		<h5>How to use Awesome Todo</h5>
+		<h5>How to use Fire2Do</h5>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat justo id viverra consequat. Integer feugiat lorem faucibus est ornare scelerisque. Donec tempus, nunc vitae semper sagittis, odio magna semper ipsum, et laoreet sapien mauris vitae arcu.</p>
 	</q-page>
 </template>

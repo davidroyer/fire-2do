@@ -116,7 +116,7 @@
       quitApp() {
         this.$q.dialog({
           title: 'Confirm',
-          message: 'Really quit Awesome Todo?',
+          message: 'Really quit Fire2Do?',
           cancel: true,
           persistent: true
         }).onOk(() => {

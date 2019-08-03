@@ -114,7 +114,7 @@ export default {
       openURL('http://www.google.com')
     },
     emailUs () {
-      window.location.href = 'mailto:hello@awesometodo?subject=Awesome Todo Feedback'
+      window.location.href = 'mailto:hello@awesometodo?subject=Fire2Do Feedback'
     }
   }
 }
