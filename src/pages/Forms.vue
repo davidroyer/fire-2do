@@ -4,19 +4,21 @@
     <q-badge color="secondary" multi-line>
       Model: "{{ selectedSchool }}"
     </q-badge>
-
-    <q-select
-      class="q-mb-xl"
-      filled
-      v-model="selectedSchool"
-      :options="formsData"
-      label="Select A School"
-      @input="handleSelectedSchool"
-    />
+    <div class="row q-mb-sm">
+      <q-select
+        class="q-mb-xl col-4"
+        filled
+        v-model="selectedSchool"
+        :options="formsData"
+        label="Select A School"
+        @input="handleSelectedSchool"
+      />
+    </div>
 
     <q-slide-transition>
-      <div v-show="selectedSchool">
+      <div v-show="selectedSchool" class="row">
         <q-select
+          class="q-mb-xl col-4"
           filled
           v-model="selectedTemplate"
           :options="formTemplates"
@@ -45,9 +47,6 @@ const baseFormURL = `https://forms.learninghouse.com/embed`;
  * @link https://github.com/thelearninghouse/tlh-forms/blob/master/src/admin/js/components/FormSettings.vue
  */
 export default {
-  // meta: {
-  //   script: [{ src: "https://cdn.jsdelivr.net/npm/vue" }]
-  // },
   data: () => ({
     formsData,
     selectedSchool: null,
@@ -78,7 +77,7 @@ export default {
 </script>
 
 <style scoped>
-.q-select {
+/* .q-select {
   max-width: 400px;
-}
+} */
 </style>
