@@ -1,0 +1,14 @@
+- label: FDU
+  value: FDU
+  ghDirectory: fdu
+  accountId: 123
+
+- label: Point Park
+  value: Point Park
+  ghDirectory: ppu
+  accountId: 123
+
+- label: WVSU
+  value: WVSU
+  ghDirectory: wvsu
+  accountId: 780

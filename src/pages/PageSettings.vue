@@ -53,15 +53,25 @@
       </q-item>
     </q-list>
 
-    <q-input @input="val => { file = val[0] }" filled type="file" hint="Native file" />
+    <q-input
+      @input="
+        val => {
+          file = val[0];
+        }
+      "
+      filled
+      type="file"
+      hint="Native file"
+    />
     <img v-if="lastUploadUrl" :src="lastUploadUrl" alt />
   </q-page>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import { openURL } from 'quasar'
-import { firebaseStorage } from 'boot/firebase'
+import { mapGetters, mapActions } from "vuex";
+import { openURL } from "quasar";
+
+import { firebaseStorage } from "boot/firebase";
 
 export default {
   data: () => ({
@@ -69,56 +79,62 @@ export default {
     files: null,
     lastUploadUrl: null
   }),
+
   watch: {
-    file (file) {
-      console.log('file choosen: ', file);
-      const { name } = file
+    file(file) {
+      console.log("file choosen: ", file);
+      const { name } = file;
       const storageRef = firebaseStorage.ref();
-      storageRef.child(`images/${name}`).put(file)
+      storageRef
+        .child(`images/${name}`)
+        .put(file)
         // .then(snapshot => snapshot.ref.getDownloadURL())
         .then(snapshot => {
-          console.log('snapshot value: ', snapshot);
+          console.log("snapshot value: ", snapshot);
 
-          return snapshot.ref.getDownloadURL()
+          return snapshot.ref.getDownloadURL();
         })
-        .then((url) => {
+
+        .then(url => {
           console.log(url);
-          this.lastUploadUrl = url
+          this.lastUploadUrl = url;
         })
         .catch(console.error);
-
     }
   },
   computed: {
-    ...mapGetters('settings', ['settings']),
+    ...mapGetters("settings", ["settings"]),
     show12HourTimeFormat: {
-      get () {
-        return this.settings.show12HourTimeFormat
+      get() {
+        return this.settings.show12HourTimeFormat;
       },
-      set (value) {
-        this.setShow12HourTimeFormat(value)
+      set(value) {
+        this.setShow12HourTimeFormat(value);
       }
     },
     showTasksInOneList: {
-      get () {
-        return this.settings.showTasksInOneList
+      get() {
+        return this.settings.showTasksInOneList;
       },
-      set (value) {
-        this.setShowTasksInOneList(value)
+      set(value) {
+        this.setShowTasksInOneList(value);
       }
     }
   },
   methods: {
-    ...mapActions('settings', ['setShow12HourTimeFormat', 'setShowTasksInOneList']),
-    visitOurWebsite () {
-      openURL('http://www.google.com')
+    ...mapActions("settings", [
+      "setShow12HourTimeFormat",
+      "setShowTasksInOneList"
+    ]),
+    visitOurWebsite() {
+      openURL("http://www.google.com");
     },
-    emailUs () {
-      window.location.href = 'mailto:hello@awesometodo?subject=Fire2Do Feedback'
+    emailUs() {
+      window.location.href =
+        "mailto:hello@awesometodo?subject=Fire2Do Feedback";
     }
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

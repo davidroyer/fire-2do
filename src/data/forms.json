@@ -1,0 +1,32 @@
+[
+  {
+    "label": "FDU",
+    "value": "FDU",
+    "ghDirectory": "fdu",
+    "id": "1ed70a69-5566-4313-8494-6a02b4ca0b62"
+  },
+  {
+    "label": "Rivier",
+    "value": "Rivier",
+    "ghDirectory": "rivier",
+    "id": "71810516-a612-4b1d-afd9-3b2437ccf858"
+  },
+  {
+    "label": "Lesley",
+    "value": "Lesley",
+    "ghDirectory": "lesley",
+    "id": "390627eb-3723-4d11-8ee0-4090d1e3f49b"
+  },
+  {
+    "label": "Point Park",
+    "value": "Point Park",
+    "ghDirectory": "ppu",
+    "id": "123"
+  },
+  {
+    "label": "WVSU",
+    "value": "WVSU",
+    "ghDirectory": "wvsu",
+    "id": 780
+  }
+]
