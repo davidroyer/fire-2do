@@ -1,40 +1,71 @@
 <template>
   <q-page padding>
     <h2 header>Forms</h2>
-    <q-badge color="secondary" multi-line>
-      Model: "{{ selectedSchool }}"
-    </q-badge>
-    <div class="row q-mb-sm">
-      <q-select
-        class="q-mb-xl col-4"
-        filled
-        v-model="selectedSchool"
-        :options="formsData"
-        label="Select A School"
-        @input="handleSelectedSchool"
-      />
+
+    <div class="sample-id" style="margin-top: -3.5em; display: block;">
+      <q-btn
+        @click="handleCopyProgramId"
+        size="md"
+        class="q-mb-xl q-pa-sm copy-btn"
+        label="Sample Program ID"
+      >
+        <q-badge color="primary" floating> Copy</q-badge>
+      </q-btn>
     </div>
 
-    <q-slide-transition>
-      <div v-show="selectedSchool" class="row">
-        <q-select
-          class="q-mb-xl col-4"
-          filled
-          v-model="selectedTemplate"
-          :options="formTemplates"
-          label="Select A Template"
-        />
-      </div>
-    </q-slide-transition>
-
-    <q-btn
-      class="q-mt-lg q-mb-sm"
-      color="primary"
-      label="Load Form"
-      @click="loadForm"
+    <q-input
+      ref="sampleProgramIdInput"
+      class="sample-id-input"
+      v-model="sampleProgramId"
     />
-    <hr class="q-my-lg" />
-    <div id="tlh-form"></div>
+
+    <div class="row q-mb-sm justify-around">
+      <section class="left-side form-controls col-md-5 col q-pr-lg">
+        <q-select
+          class="q-mb-lg"
+          filled
+          v-model="selectedSchool"
+          :options="formsData"
+          label="Select A School"
+          @input="handleSelectedSchool"
+        />
+        <q-slide-transition>
+          <div v-show="selectedSchool">
+            <q-select
+              filled
+              v-model="selectedTemplate"
+              :options="formTemplates"
+              label="Select A Template"
+            />
+
+            <q-toggle
+              class="q-mt-xl"
+              v-model="useCustomFormId"
+              label="Use A Custom Form ID"
+              left-label
+            />
+
+            <q-input
+              v-if="useCustomFormId"
+              label="Custom ID To Use"
+              v-model="customFormId"
+            />
+            <div class="button-wrapper">
+              <q-btn
+                class="q-mt-lg q-mb-sm"
+                color="primary"
+                label="Load Form"
+                @click="loadForm"
+              />
+            </div>
+          </div>
+        </q-slide-transition>
+      </section>
+
+      <section class="right-side form-preview col-md-5">
+        <div id="tlh-form"></div>
+      </section>
+    </div>
   </q-page>
 </template>
 
@@ -51,10 +82,19 @@ export default {
     formsData,
     selectedSchool: null,
     selectedTemplate: null,
-    formTemplates: []
+    formTemplates: [],
+    useCustomFormId: false,
+    customFormId: null,
+    sampleProgramId: "ba4bc33f-747e-487d-8998-f360b7e164f1"
   }),
 
   methods: {
+    handleCopyProgramId() {
+      const inputEl = this.$refs.sampleProgramIdInput;
+      inputEl.select();
+      document.execCommand("copy");
+    },
+
     async handleSelectedSchool({ ghDirectory }) {
       this.selectedTemplate = null;
       this.formTemplates = [];
@@ -70,13 +110,38 @@ export default {
   computed: {
     formScript() {
       const { ghDirectory, id } = this.selectedSchool;
-      return `${baseFormURL}/${ghDirectory}/${this.selectedTemplate}?account_id=${id}`;
+      let formId;
+      let idType;
+
+      if (this.useCustomFormId) {
+        formId = this.customFormId;
+        idType = "program_id";
+      } else {
+        formId = id;
+        idType = "account_id";
+      }
+      return `${baseFormURL}/${ghDirectory}/${this.selectedTemplate}?${idType}=${formId}`;
     }
   }
 };
 </script>
 
 <style scoped>
+.left-side.form-controls {
+  border-right: 1px solid rgba(175, 175, 175, 0.418);
+}
+
+.button-wrapper {
+  width: 100%;
+}
+
+.copy-btn {
+  text-transform: capitalize !important;
+  font-weight: 400;
+}
+.sample-id-input {
+  opacity: 0;
+}
 /* .q-select {
   max-width: 400px;
 } */
